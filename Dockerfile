@@ -4,10 +4,12 @@ FROM python:3.9-slim
 # Defina o diretório de trabalho
 WORKDIR /app
 
-# Copie os arquivos de requisitos para o diretório de trabalho
-COPY requirements.txt .
+# Crie um ambiente virtual
+RUN python -m venv /opt/venv
 
-# Instale as dependências do Python
+# Ative o ambiente virtual e instale as dependências do Python
+ENV PATH="/opt/venv/bin:$PATH"
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copie o restante do código da aplicação para o diretório de trabalho
